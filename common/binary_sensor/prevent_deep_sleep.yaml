@@ -1,0 +1,3 @@
+platform: homeassistant
+id: ${sleep_prefix}_prevent_deep_sleep
+entity_id: input_boolean.${sleep_prefix}_prevent_deep_sleep

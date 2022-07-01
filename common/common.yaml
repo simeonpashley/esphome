@@ -1,0 +1,8 @@
+<<: !include wifi.yaml
+#<<: !include mqtt.yaml
+<<: !include api.yaml
+<<: !include ota.yaml
+<<: !include logger.yaml
+<<: !include deep_sleep.yaml
+#<<: !include script.yaml
+#<<: !include status_led.yaml

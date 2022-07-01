@@ -1,0 +1,7 @@
+platform: uptime
+name: ${device_name} Uptime
+icon: mdi:timer-outline
+filters:
+  - lambda: return x / 60;
+unit_of_measurement: minute
+

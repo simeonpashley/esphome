@@ -1,0 +1,11 @@
+wifi:
+  ssid: ${wifi_ssid}
+  password: ${wifi_passwd}
+#  reboot_timeout: 5min
+#  output_power: 10dB
+#  power_save_mode: high
+  ap:
+    ssid: ${device_id}
+    password: ${ap_wifi_pwd}
+
+captive_portal:

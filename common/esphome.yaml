@@ -1,0 +1,5 @@
+esphome:
+  name: ${device_id}
+  on_boot:
+    then:
+      - script.execute: consider_deep_sleep

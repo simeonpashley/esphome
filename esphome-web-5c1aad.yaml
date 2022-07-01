@@ -1,7 +1,7 @@
 substitutions:
-  device_id: esphome-web-af4cb4
-  sleep_prefix: af4cb4
-  device_name: "esphome-web-af4cb4"
+  device_id: esphome-web-5c1aad
+  sleep_prefix: web5c1aad
+  device_name: "esphome-web-5c1aad"
   platform: esp32
   board: esp32dev
   wifi_ssid: !secret wifi_ssid
@@ -11,50 +11,37 @@ substitutions:
   update_interval: 5s    # updates sensor data and sends to HA. Needs to be less than awake time
   sleep_duration: 2min   # set how long to sleep in minutes
 
+
 <<: !include common/esphome.yaml
 <<: !include common/esp32.yaml
 <<: !include common/common.yaml
 
-# esp32:
-#   board: esp32dev
-#   framework:
-#     type: arduino
+i2c:
+  - id: bus_a
+    sda: 25
+    scl: 21
+    scan: true
 
 sensor:
-  - platform: dht
-    model: DHT11
-    pin: 22
-    temperature:
-      name: "${device_name} Temperature"
-      accuracy_decimals: 1
-      unit_of_measurement: "°C"
-      icon: "mdi:thermometer"
-      device_class: "temperature"
-      state_class: "measurement"
-      filters:
-        - median:
-            window_size: 10
-            send_every: 1
-            # send_first_at: 5
-        - offset: -2.0
-    humidity:
-      name: "${device_name} Humidity"
-      accuracy_decimals: 2
-      unit_of_measurement: "%"
-      icon: "mdi:thermometer"
-      device_class: "humidity"
-      state_class: "measurement"     
+  - platform: bh1750
+    name: "${device_name} Illuminance"
+    i2c_id: bus_a
+    address: 0x23
     update_interval: ${update_interval}
-    setup_priority: -100
+    device_class: illuminance
+    unit_of_measurement: lx
+    icon: "mdi:light"
+    accuracy_decimals: 0
   - !include common/sensor/uptime.yaml
   - !include common/sensor/wifi.yaml
 
 binary_sensor:
   - !include common/binary_sensor/prevent_deep_sleep.yaml
-  
+
 text_sensor:
   - !include common/text_sensor/version.yaml
   - !include common/text_sensor/wifi.yaml
 
 script:
   - !include common/script/deep_sleep.yaml
+

@@ -1,0 +1,14 @@
+ota:
+  on_end:
+    then:
+      - logger.log: 'OTA successful - flipping switch'
+      - homeassistant.service: 
+          service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.${sleep_prefix}_prevent_deep_sleep
+
+binary_sensor:
+  - platform: homeassistant
+    id: ${sleep_prefix}_prevent_deep_sleep
+    name: 'Prevent sensor Deep Sleep'
+    entity_id: input_boolean.${sleep_prefix}_prevent_deep_sleep
